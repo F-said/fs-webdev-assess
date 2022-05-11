@@ -86,8 +86,6 @@ class Pokemon {
     }
 }
 
-
-var poke_class = require("Pokemon");
 const file = "data/pokemon.csv"
 
 var data = new Array();
@@ -201,8 +199,8 @@ function showOpponent() {
 function startBattle() {
     const poke1_data = data[poke_num];
     const poke2_data = data[opponent];
-    const poke_1 = new poke_class.Pokemon(poke1_data[name_ind], poke1_data[attack_ind], poke1_data[defense_ind], poke1_data[health_ind], poke1_data[type_ind]);
-    const poke_2 = new poke_class.Pokemon(poke2_data[name_ind], poke2_data[attack_ind], poke2_data[defense_ind], poke2_data[health_ind], poke2_data[type_ind]);
+    const poke_1 = new Pokemon(poke1_data[name_ind], poke1_data[attack_ind], poke1_data[defense_ind], poke1_data[health_ind], poke1_data[type_ind]);
+    const poke_2 = new Pokemon(poke2_data[name_ind], poke2_data[attack_ind], poke2_data[defense_ind], poke2_data[health_ind], poke2_data[type_ind]);
 
     alert(`Battle start between ${poke_1.name} and ${poke_2.name}. Battle ends after 10 turns or once a pokemon faints.`);
     let turns = 0;
