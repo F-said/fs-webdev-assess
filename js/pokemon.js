@@ -1,9 +1,8 @@
-// Your code here!
 const MIN_VALUE = 0;
 const DEF_NAME = "unnamed";
 const DEF_TYPE = "unknown"; 
 
-class Pokemon {
+export class Pokemon {
     /**
      * A class to model a pokemon that takes and recieves damage
     Instance Variables

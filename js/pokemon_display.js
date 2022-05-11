@@ -1,3 +1,92 @@
+const MIN_VALUE = 0;
+const DEF_NAME = "unnamed";
+const DEF_TYPE = "unknown"; 
+
+class Pokemon {
+    /**
+     * A class to model a pokemon that takes and recieves damage
+    Instance Variables
+    ----------
+    name:   string
+            Pokemon name according to species
+    attack: number
+            Stat that it inflicts on other pokemon
+    defense:    number 
+                Stat that it uses to neglect other attack
+    health: number
+            Stat of number of hit points it can take
+    type:   string
+            Type of pokemon (bug, normal, rock, etc)
+    """
+     */
+    constructor(name = DEF_NAME, attack = MIN_VALUE, defense = MIN_VALUE, health = MIN_VALUE, type = DEF_TYPE) {
+        this.name = name;
+        this.attack = attack;
+        this.defense = defense;
+        this.init_health = this.health = health;
+        this.type = type;
+        this.fainted = false; 
+    }
+
+    // getters 
+    get name() {
+        return this._name;
+    }
+    get attack() {
+        return this._attack;
+    }
+    get defense() {
+        return this._defense;
+    }
+    get health() {
+        return this._health;
+    }
+    get type() {
+        return this._type; 
+    }
+    get fainted() {
+        return this._fainted; 
+    }
+
+    // setters
+    set name(val) {
+        this._name = val;
+    }
+    set attack(val) {
+        this._attack = val;
+    }
+    set defense(val) {
+        this._defense = val;
+    }
+    set health(val) {
+        this._health = val;
+    }
+    set type(val) {
+        this._type = val; 
+    }
+    set fainted(val) {
+        this._fainted = val; 
+    }
+
+    takeDamage(damage) {
+        if (this.fainted) return; 
+
+        let damaged_health = this.health - damage; 
+        this.health = Math.max(MIN_VALUE, damaged_health); 
+        this.fainted = this.health == MIN_VALUE; 
+    }
+    attackOpponent(other) {
+        let damage = this.attack - other.defense; 
+        if (other.fainted || damage <= MIN_VALUE ) return; 
+
+        other.takeDamage(damage); 
+    }
+    display() {
+        return `${this.name.toUpperCase()} (${this.type.toUpperCase()}) ${this.health}/${this.init_health}`
+    }
+}
+
+
 
 const file = "data/pokemon.csv"
 
@@ -12,7 +101,6 @@ var pok_object = raw.responseText.split(/\r?\n|\r/);
 for (var i = 0; i < pok_object.length; i++) {
     data.push(pok_object[i].split(','));
 }
-console.log(data);
 // create map of type and color
 var type_color = {
     "Grass": "yellowgreen",
@@ -45,6 +133,9 @@ attack_ind = headers.indexOf('Attack');
 defense_ind = headers.indexOf('Defense');
 desc_ind = headers.indexOf('Description');
 
+var poke_num = 1; 
+var opponent = 1; 
+
 function listPokemon() {
     // create bootstrap list of pokemon
     let rows = Math.ceil(data.length/3)
@@ -71,24 +162,66 @@ function listPokemon() {
     }
 };
 
-function showPokemon(num) {
-    $("#pokemon_display").children().last().remove();
+function generatePokeDisplay(num) {
     let color = type_color[data[num][type_ind]];
-    var $pokemon = 
-        $('<div class="card display-card bg-light">' + 
-            '<img class="card-img-top display-image" src="data/pokemon/'+num+'.png" alt="Pokemon Image"/>' +
-            '<div class="card-body" style="background-color:' + color + '">' +  
-                '<h5 class="card-title">'+data[num][name_ind]+'</h5><hr/>' + 
-                '<div class="row-inline">' +
-                    '<b class="card-text stat"> Type: '+data[num][type_ind]+'</b>' + 
-                    '<b class="card-text stat"> HP: '+data[num][health_ind]+'</b>' + 
-                    '<b class="card-text stat"> Attack: '+data[num][attack_ind]+'</b>' + 
-                    '<b class="card-text stat"> Defense:'+data[num][defense_ind]+'</b>' + 
-                '</div><hr/>' +
-                '<div>' +
-                    '<b>'+data[num][desc_ind]+'</b>' +
-                '</div>' +
+    return $(
+    '<div class="card display-card bg-light">' + 
+        '<img class="card-img-top display-image" src="data/pokemon/'+num+'.png" alt="Pokemon Image"/>' +
+        '<div class="card-body" style="background-color:' + color + '">' +  
+            '<h5 class="card-title">'+data[num][name_ind]+'</h5><hr/>' + 
+            '<div class="row-inline">' +
+                '<b class="card-text stat"> Type: '+data[num][type_ind]+'</b>' + 
+                '<b class="card-text stat"> HP: '+data[num][health_ind]+'</b>' + 
+                '<b class="card-text stat"> Attack: '+data[num][attack_ind]+'</b>' + 
+                '<b class="card-text stat"> Defense:'+data[num][defense_ind]+'</b>' + 
+            '</div><hr/>' +
+            '<div>' +
+                '<b>'+data[num][desc_ind]+'</b>' +
             '</div>' +
-        '</div>')
+        '</div>' +
+    '</div>')
+}
+
+function showPokemon(num) {
+    if (isNaN(num) || (+(num) > 151 || +(num) < 1)) return; 
+    poke_num = num;
+    $("#pokemon_display").children().last().remove();
+    var $pokemon = generatePokeDisplay(poke_num);
     $("#pokemon_display").append($pokemon);
 };
+
+function showOpponent() {
+    $("#pokemon_opponent").children().last().remove();
+    let rand_num = Math.floor(Math.random() * (data.length - 1) + 1);
+    opponent = rand_num; 
+    var $pokemon = generatePokeDisplay(opponent);
+    $("#pokemon_opponent").append($pokemon);
+};
+
+function startBattle() {
+    const poke1_data = data[poke_num];
+    const poke2_data = data[opponent];
+    const poke_1 = new Pokemon(poke1_data[name_ind], poke1_data[attack_ind], poke1_data[defense_ind], poke1_data[health_ind], poke1_data[type_ind]);
+    const poke_2 = new Pokemon(poke2_data[name_ind], poke2_data[attack_ind], poke2_data[defense_ind], poke2_data[health_ind], poke2_data[type_ind]);
+
+    alert(`Battle start between ${poke_1.name} and ${poke_2.name}. Battle ends after 10 turns or once a pokemon faints.`);
+    let turns = 0;
+    while (turns < 10) {
+         poke_2.attackOpponent(poke_1);
+         alert(`${poke_2.name} attacks for ${poke_2.attack}! ${poke_1.name} at ${poke_1.health} HP.`);
+         if(poke_1.fainted) {
+             alert(`${poke_1.name} fainted...`);
+             break; 
+         }
+         poke_1.attackOpponent(poke_2);
+         alert(`${poke_1.name} attacks for ${poke_1.attack}! ${poke_2.name} at ${poke_2.health} HP.`);
+         if(poke_2.fainted) {
+             alert(`${poke_2.name} fainted...`);
+             break; 
+         }
+         turns++; 
+    }
+    if (turns >= 10) {
+        alert("Both pokemon are equally matched. Battle ends in stalemate.")
+    }
+}
