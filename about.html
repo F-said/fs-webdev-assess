@@ -6,13 +6,109 @@
     <script type="text/javascript" src="js/pokemon_display.js"></script>
 </head>
 <body>
-    <div id="navigation"></div>
-    <div class="row">
-        <div class="col">
-            <h1>About this site</h1>
-            <p>Think back to </p>
+    <div class="container mt-5 mb-5 px-2">
+        <div class="row">
+            <h2>About this site</h2>
+            <div class="row mt-3">
+                <div class="col-sm-8 col-md-8 col-xs-12">
+                    <p>
+                        This site is an interactive overview of the Generation 1 "Pokemon" universe. It includes a page to 
+                        <a href="/index.html">explore stats</a>, some fun <a href="/about.html">programming facts</a> about the pokemon video games, 
+                        and a shallow <a href="/battle.html">battle simulation</a>. 
+                    </p>
+                    <p>
+                         This site was made using <a href="https://getbootstrap.com/">Bootstrap</a>, <a href="https://jquery.com/">Jquery</a>, 
+                         <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a>, and basic 
+                         <a href="https://www.w3.org/standards/webdesign/htmlcss">HTML & CSS</a>. It's hosted via 
+                         <a href="https://pages.github.com/">GitHub pages</a>.
+                    </p>
+                    <p>
+                        All images belong to Nintendo & The Pokemon Company.
+                   </p>
+                </div>
+                <div class="col-sm-4 col-md-4 col-xs-12 mt-2" style="padding-left:120px;">
+                    <figure>
+                        <img class="img-fluid" src="data/pokemon/155.png" width="200px;"/>
+                        <figcaption><i>A favorite pokemon of mine, cyndaquil #155</i></figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <h2>PokiWiki</h2>
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-xs-12 mt-2">
+                    <figure>
+                        <img class="img-fluid" src="images/Pokemon_Trading_Card_Game_cardback.jpg" width="200px;"/>
+                        <figcaption><i>Image from <a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Trading_Card_Game">Wikipedia</a></i></figcaption>
+                    </figure>
+                </div>
+                <div class="col-sm-8 col-md-8 col-xs-12 mt-3">
+                    <p>
+                        Inspired by the Pokemon trading card game, this page displays the entire list of generation 1 pokemon and their respective
+                        sprites. Select any pokemon to view their stats, image, and description as translated from the original Japanese Blue version.
+                    </p>
+                    <p>
+                         This feature was made by creating two <a href="">JavaScript functions</a>, one that expresses a CSV file of pokemon data as Bootstrap cards,
+                         and another that rewrites a div each time a pokemon card is selected. 
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <h2>Battle</h2>
+            <div class="row">
+                <div class="col-sm-8 col-md-8 col-xs-12 mt-3">
+                    <p>
+                        Inspired by the Gameboy Advanced Pokemon games, this feature allows you to choose two pokemon and have them battle in 
+                        non-interactive step-by-step battle that ends until one pokemon faints. 
+                    </p>
+                    <p>
+                         This feature was made by created by expanding upon code from the previously mentioned JavaScript functions to allow users
+                         to select Pokemon and then simulate battle.
+                    </p>
+                </div>
+                <div class="col-sm-4 col-md-4 col-xs-12 mt-2" style="padding-left:120px;">
+                    <figure>
+                        <img class="img-fluid" src="images/artworks-000557923566-gfosta-t500x500.jpg" width="200px;"/>
+                        <figcaption><i>Screencap from Pokemon Yellow.</i></figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <h2>Missingno & Buggy Code</h2>
+            <div class="col-sm-4 col-md-4 col-xs-12 mt-2">
+                <figure>
+                    <img class="img-fluid" src="images/MissingNo..webp" width="200px;"/>
+                    <figcaption><i>Missingno sprite</a></i></figcaption>
+                </figure>
+            </div>
+            <div class="col-sm-8 col-md-8 col-xs-12 mt-3">
+                <p>
+                    My first exposure to software bugs came long before I was introduced to the words "bit", "algorithm", or "compression." At the
+                    age of 9, I used to play a game called "Pokemon Fire Red." Within the 1996 predecessor of this game ,
+                    "<a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Red_and_Blue">Pokemon Red</a>", was a
+                    enigmatic software bug called "<a href="https://bulbapedia.bulbagarden.net/wiki/MissingNo.">Missingno</a>." It was a jumble of pixels that didn't quite look like anything, but it still had a 
+                    mystical air about it. 
+                </p>
+                <p>
+                    Specifically, this bug would only occur if the player executed a set of steps in order. There were also rumors that this 
+                    bug would allow duplication of some exceedingly rare item in your inventory after you encounter it. 
+                </p>
+                <p>
+                    So essentially, you have a reward-bearing metaphysical being that appears in your game after a ritual is followed. This was the 
+                    equivalent of Moses encountering the burning bush and probably imprinted ideas of technology and metaphysics in many young minds around this time. 
+                </p>
+                <p> 
+                    When you begin to peel back the layers however, you have interesting case-study on the unintentional effects of software, 
+                    and how they can propagate throughout a system to cause suprising postconditions. The details of this are summarized in this 
+                    <a href="https://www.youtube.com/watch?v=ZI50XUeN6QE&ab_channel=RetroGameMechanicsExplained">Youtube video</a>.
+                </p>
+            </div>
         </div>
     </div>
+    <div id="navigation"></div>
 </body>
 
 <!--create navy-->
